@@ -11,15 +11,21 @@ function add_custom_3d_object_field() {
 		'description' => 'Pash to spline viewer file.',
 	);
 	vc_add_param( 'vc_row', $attributes_textfield );
-	// Custom Option Sticky
-	$attributes_checkbox = array(
-		'type' => 'checkbox',
-		'heading' => 'Object is sticky',
-		'param_name' => 'custom_3d_object_sticky',
-		'value' => array('Ja' => 'true'),
-		'description' => 'Aktivieren Sie diese Option, um das 3D-Objekt als sticky zu markieren.',
+	// Custom Option for Object Positioning
+	$attributes_dropdown = array(
+		'type' => 'dropdown',
+		'heading' => 'Object Position',
+		'param_name' => 'custom_3d_object_position',
+		'value' => array(
+			'Absolute' => 'absolute',
+			'Fixed' => 'fixed',
+			'Sticky' => 'sticky'
+		),
+		'std' => 'absolute',  // Set the default value
+		'description' => 'Wählen Sie die Positionseigenschaft für das 3D-Objekt.',
 	);
-	vc_add_param( 'vc_row', $attributes_checkbox );
+	
+	vc_add_param('vc_row', $attributes_dropdown);
 	// Custom Height
 	$attributes_height = array(
 		'type' => 'textfield',
@@ -43,30 +49,35 @@ add_filter( 'vc_shortcode_output', 'prepend_custom_3d_object_inside_row', 10, 3 
 
 
 /* Add spline Viewer in Frontend Row */
+function prepend_custom_3d_object_inside_row($output, $shortcode, $atts) {
+	if ($shortcode->settings('base') === 'vc_row' && isset($atts['custom_3d_object']) && !empty($atts['custom_3d_object'])) {
 
-function prepend_custom_3d_object_inside_row( $output, $shortcode, $atts ) {
-	if ( $shortcode->settings('base') === 'vc_row' && isset( $atts['custom_3d_object'] ) && ! empty( $atts['custom_3d_object'] ) ) {
-		
-		// If the checkbox is true, add the class "object_is_sticky" to the div
-		$classes = 'custom-3d-object';
-		if (isset($atts['custom_3d_object_sticky']) && $atts['custom_3d_object_sticky'] === 'true') {
-			$classes .= ' object_is_sticky';
+		// Default values
+		$position_style = 'position: absolute;';
+		$height_style = 'height: 100vh;';
+
+		// Checking for custom_3d_object_position and setting the style accordingly
+		if (isset($atts['custom_3d_object_position'])) {
+			$position_value = esc_attr($atts['custom_3d_object_position']); 
+			$position_style = 'position: ' . $position_value . ';';
 		}
 
-		// Add the ID attribute if custom_3d_id is set
+		if (isset($atts['custom_3d_height']) && !empty($atts['custom_3d_height'])) {
+			$height_style = 'height: ' . esc_attr($atts['custom_3d_height']) . ';'; // Assuming the value includes units like 'px' or '%'
+		}
+
+		// Combine the styles
+		$combined_style = trim($position_style . ' ' . $height_style);
+
+		$classes = 'custom-3d-object';
+		
 		$id_attribute = '';
 		if (isset($atts['custom_3d_id']) && !empty($atts['custom_3d_id'])) {
 			$id_attribute = ' id="' . esc_attr($atts['custom_3d_id']) . '"';
 		}
 
-		// Add height style if custom_3d_height is set
-		$height_style = '';
-		if (isset($atts['custom_3d_height']) && !empty($atts['custom_3d_height'])) {
-			$height_style = ' style="height: ' . esc_attr($atts['custom_3d_height']) . ';"'; // Assuming the value includes units like 'px' or '%'
-		}
-
-		$custom_output = '<div class="' . $classes . '"' . $id_attribute . $height_style . '>';
-		$custom_output .= '<spline-viewer loading-anim url="' . esc_url( $atts['custom_3d_object'] ) . '"></spline-viewer>';
+		$custom_output = '<div class="' . esc_attr($classes) . '"' . $id_attribute . ' style="' . $combined_style . '">';
+		$custom_output .= '<spline-viewer loading-anim url="' . esc_url($atts['custom_3d_object']) . '"></spline-viewer>';
 		$custom_output .= '</div>';
 
 		// Find the opening section tag and insert the custom output right after it
