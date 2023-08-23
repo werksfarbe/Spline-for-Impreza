@@ -2,7 +2,7 @@
 /*
 Plugin Name: Spline 3D for Impreza
 Description: Plugin for Imprezas WP-Backery to place 3D Objects in Background.
-Version: 1.0
+Version: 0.1
 Author: Tom
 */
 
