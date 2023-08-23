@@ -10,8 +10,13 @@ Author: Tom
 if (!defined('ABSPATH')) {
 	exit;
 }
+define('SPLINE_3D_PATH', plugin_dir_path(__FILE__));
+define('SPLINE_3D_URL', plugin_dir_url(__FILE__));
 
-require_once SPLINE_3D_PATH . 'includes/class-spline-3d.php';
+// Die Hauptklasse des Plugins einbinden
+require_once SPLINE_3D_PATH . '/includes/class-spline-3d.php';
+
+
 
 // Enqueue styles and scripts
 function spline_3d_enqueue_scripts() {
