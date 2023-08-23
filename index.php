@@ -17,17 +17,6 @@ define('SPLINE_3D_URL', plugin_dir_url(__FILE__));
 require_once SPLINE_3D_PATH . '/includes/class-spline-3d.php';
 
 
-
-// Enqueue styles and scripts
-function spline_3d_enqueue_scripts() {
-	wp_enqueue_style('spline-3d-for-impreza', plugin_dir_url(__FILE__) . 'css/spline-3d-for-impreza.css');
-	wp_enqueue_script('spline-3d-for-impreza', plugin_dir_url(__FILE__) . 'js/spline-3d-for-impreza.js', array(), '1.0', true);
-
-	$script_url = get_option('spline_3d_script_url', 'https://unpkg.com/@splinetool/viewer/build/spline-viewer.js');
-	echo '<script type="module" src="' . esc_url($script_url) . '"></script>';
-}
-add_action('wp_enqueue_scripts', 'spline_3d_enqueue_scripts');
-
 // Add admin menu
 function spline_3d_admin_menu() {
 	add_menu_page('WerksTools', 'WerksTools', 'manage_options', 'werkstools', 'spline_3d_admin_page', 'dashicons-admin-generic', 3);
