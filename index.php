@@ -6,6 +6,13 @@ Version: 0.1
 Author: Tom
 */
 
+
+if (!defined('ABSPATH')) {
+	exit;
+}
+
+require_once SPLINE_3D_PATH . 'includes/class-spline-3d.php';
+
 // Enqueue styles and scripts
 function spline_3d_enqueue_scripts() {
 	wp_enqueue_style('spline-3d-for-impreza', plugin_dir_url(__FILE__) . 'css/spline-3d-for-impreza.css');
