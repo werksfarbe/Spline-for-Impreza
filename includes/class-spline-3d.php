@@ -44,4 +44,23 @@ function prepend_custom_3d_object_inside_row( $output, $shortcode, $atts ) {
 	}
 	return $output;
 }
-/* Spline per Row  END */
+/* has_3d_object Class */
+function check_for_3d_object($content) {
+	// Überprüfen Sie, ob der spezifische URL-Anfang im Inhalt vorhanden ist
+	if (strpos($content, 'https://prod.spline.design') !== false) {
+		// Setzen Sie eine globale Variable, um später zu überprüfen
+		global $has_3d_object;
+		$has_3d_object = true;
+	}
+	return $content;
+}
+add_filter('the_content', 'check_for_3d_object', 20);  // Priority 20, um sicherzustellen, dass es nach anderen Filtern ausgeführt wird
+
+function add_3d_object_class($classes) {
+	global $has_3d_object;
+	if ($has_3d_object) {
+		$classes[] = 'has_3d_object';
+	}
+	return $classes;
+}
+add_filter('body_class', 'add_3d_object_class');
