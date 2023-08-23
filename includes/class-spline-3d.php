@@ -1,4 +1,15 @@
 <?php
+// Enqueue styles and scripts
+function spline_3d_enqueue_scripts() {
+	wp_enqueue_style('spline-3d-for-impreza', plugin_dir_url(__FILE__) . 'css/spline-3d-for-impreza.css');
+	wp_enqueue_script('spline-3d-for-impreza', plugin_dir_url(__FILE__) . 'js/spline-3d-for-impreza.js', array(), '1.0', true);
+
+	$script_url = get_option('spline_3d_script_url', 'https://unpkg.com/@splinetool/viewer/build/spline-viewer.js');
+	echo '<script type="module" src="' . esc_url($script_url) . '"></script>';
+}
+add_action('wp_enqueue_scripts', 'spline_3d_enqueue_scripts');
+
+
 /* Extend Row Dialoge */
 add_action( 'vc_after_init', 'add_custom_3d_object_field' );
 
