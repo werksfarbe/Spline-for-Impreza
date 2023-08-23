@@ -33,6 +33,7 @@ function spline_3d_admin_subpage() {
 	?>
 	<div class="wrap">
 		<h2>Spline 3D</h2>
+		<img src="<?php echo plugin_dir_url(__FILE__) . 'images/backend-header.png'; ?>" alt="Backend Header" style="width: 100%; max-width: 600px; display: block; margin-bottom: 20px;">
 		<form method="post" action="">
 			<table class="form-table">
 				<tr valign="top">
