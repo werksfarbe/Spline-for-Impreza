@@ -5,15 +5,13 @@
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	border: solid 10px blue;
 }
 .custom-3d-object.object_is_sticky  {
 	bottom: 0;
 	right: 0;
 	max-height: 100vh;
 	position: sticky;
-	border: solid 10px red;
-	overflow: auto;
+	overflow: hidden;
 }
 body {
 	overflow-x: visible!important;
