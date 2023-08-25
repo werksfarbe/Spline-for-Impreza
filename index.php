@@ -27,6 +27,6 @@ add_action('wp_enqueue_scripts', 'spline_3d_enqueue_scripts');
 
 require_once SPLINE_3D_PATH . '/includes/class-spline-3d.php';
 require_once SPLINE_3D_PATH . '/includes/class-spline-admin.php';
-require_once SPLINE_3D_PATH . '/includes/class-spline-3d-shortcode.php';
 require_once SPLINE_3D_PATH . '/includes/class-spline-3d-herosection.php';
+require_once SPLINE_3D_PATH . '/includes/class-spline-3d-shortcode.php';
 
