@@ -34,7 +34,7 @@ add_shortcode('add_custom_3d_object_shortcode', 'add_custom_3d_object_shortcode'
 // WP-Backey
 
 // Statt einfach Ihren Code auszuführen, setzen Sie ihn in eine Funktion:
-function load_my_plugin() {
+function load_pagebuilder_element() {
 	if (function_exists('vc_map')) {
 		vc_map(
 			array(
@@ -73,5 +73,5 @@ function load_my_plugin() {
 }
 
 // Hängen Sie Ihre Funktion an den plugins_loaded Hook mit einer höheren Priorität:
-add_action('plugins_loaded', 'load_my_plugin', 20);
+add_action('plugins_loaded', 'load_pagebuilder_element', 20);
 
