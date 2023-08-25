@@ -214,3 +214,37 @@ add_action( 'acf/include_fields', function() {
 ) );
 } );
 
+// Frontend
+add_action('us_before_page', 'spline_3d_hero_output');
+
+function spline_3d_hero_output() {
+	// ID des aktuellen Beitrags holen (funktioniert außerhalb der Loop)
+	$post_id = get_the_ID();
+
+	// Werte aus ACF-Feldern holen
+	$hero_spline_3d_height_mobile = get_field('hero_spline_3d_height_mobile', $post_id);
+	$hero_spline_3d_object_url = get_field('hero_spline_3d_object_url', $post_id);
+	$hero_spline_3d_show_hint = get_field('hero_spline_3d_show_hint', $post_id); 
+	$hero_spline_3d_show_preloader = get_field('hero_spline_3d_show_preloader', $post_id); 
+
+	echo '<section id="spline-3d-hero" style="height: ' . esc_attr($hero_spline_3d_height_mobile) . '">';
+	echo '<spline-viewer url="' . esc_url($hero_spline_3d_object_url) . '"' . 
+		 ($hero_spline_3d_show_hint ? ' hint' : '') . 
+		 ($hero_spline_3d_show_preloader ? ' loading-anim' : '') . '></spline-viewer>';
+	echo '</section>';
+}
+
+add_action('wp_head', 'spline_3d_hero_css');
+
+function spline_3d_hero_css() {
+	// ID des aktuellen Beitrags holen
+	$post_id = get_the_ID();
+
+	$hero_spline_3d_height_desktop = get_field('hero_spline_3d_height_desktop', $post_id);
+
+	echo '<style>';
+	echo '@media only screen and (min-width: 900px) {';
+	echo '#spline-3d-hero { height: ' . esc_attr($hero_spline_3d_height_desktop) . '; }';
+	echo '}';
+	echo '</style>';
+}
