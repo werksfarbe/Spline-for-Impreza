@@ -23,6 +23,32 @@ add_action( 'acf/include_fields', function() {
 	'title' => 'Spline 3D Hero',
 	'fields' => array(
 		array(
+			'key' => 'field_64e8726a0e329',
+			'label' => 'Activate Spline 3D Hero Section',
+			'name' => 'activate_spline_3d_hero_section',
+			'aria-label' => '',
+			'type' => 'radio',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'choices' => array(
+				'yes' => 'Yes',
+				'no' => 'No',
+			),
+			'default_value' => 'no',
+			'return_format' => 'value',
+			'allow_null' => 0,
+			'other_choice' => 0,
+			'layout' => 'vertical',
+			'save_other_choice' => 0,
+		),
+
+		array(
 			'key' => 'field_64e861facf422',
 			'label' => 'Spline 3D Object URL',
 			'name' => 'hero_spline_3d_object_url',
@@ -30,7 +56,15 @@ add_action( 'acf/include_fields', function() {
 			'type' => 'text',
 			'instructions' => '',
 			'required' => 0,
-			'conditional_logic' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_64e8726a0e329',
+						'operator' => '==',
+						'value' => 'yes',
+					),
+				),
+			),
 			'wrapper' => array(
 				'width' => '',
 				'class' => '',
@@ -50,7 +84,15 @@ add_action( 'acf/include_fields', function() {
 			'type' => 'text',
 			'instructions' => '',
 			'required' => 0,
-			'conditional_logic' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_64e8726a0e329',
+						'operator' => '==',
+						'value' => 'yes',
+					),
+				),
+			),
 			'wrapper' => array(
 				'width' => '',
 				'class' => '',
@@ -70,7 +112,15 @@ add_action( 'acf/include_fields', function() {
 			'type' => 'text',
 			'instructions' => '',
 			'required' => 0,
-			'conditional_logic' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_64e8726a0e329',
+						'operator' => '==',
+						'value' => 'yes',
+					),
+				),
+			),
 			'wrapper' => array(
 				'width' => '',
 				'class' => '',
@@ -90,7 +140,15 @@ add_action( 'acf/include_fields', function() {
 			'type' => 'checkbox',
 			'instructions' => '',
 			'required' => 0,
-			'conditional_logic' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_64e8726a0e329',
+						'operator' => '==',
+						'value' => 'yes',
+					),
+				),
+			),
 			'wrapper' => array(
 				'width' => '',
 				'class' => '',
@@ -116,7 +174,15 @@ add_action( 'acf/include_fields', function() {
 			'type' => 'checkbox',
 			'instructions' => '',
 			'required' => 0,
-			'conditional_logic' => 0,
+			'conditional_logic' => array(
+				array(
+					array(
+						'field' => 'field_64e8726a0e329',
+						'operator' => '==',
+						'value' => 'yes',
+					),
+				),
+			),
 			'wrapper' => array(
 				'width' => '',
 				'class' => '',

@@ -7,19 +7,23 @@ function spline_3d_admin_menu() {
 }
 add_action('admin_menu', 'spline_3d_admin_menu');
 
-// Admin subpage
 function spline_3d_admin_subpage() {
 	if (isset($_POST['spline_3d_script_url'])) {
 		update_option('spline_3d_script_url', $_POST['spline_3d_script_url']);
 	}
 
-	if (isset($_POST['post_types'])) {
-		update_option('custom_3d_hero_post_types', $_POST['post_types']);
+	// Wenn die Daten gesendet werden, aktualisieren Sie die Option für die ausgewählten Post-Typen
+	if (isset($_POST['custom_3d_hero_post_types'])) {
+		update_option('custom_3d_hero_post_types', $_POST['custom_3d_hero_post_types']);
 	}
 
-	$script_url = get_option('spline_3d_script_url', 'https://unpkg.com/@splinetool/viewer/build/spline-viewer.js');
 	$selected_post_types = get_option('custom_3d_hero_post_types', []);
-	$all_post_types = get_post_types(['public' => true, '_builtin' => false], 'objects');
+	$script_url = get_option('spline_3d_script_url', 'https://unpkg.com/@splinetool/viewer/build/spline-viewer.js');
+
+	$builtin_post_types = ['post' => (object)['name' => 'post', 'label' => 'Beiträge'], 'page' => (object)['name' => 'page', 'label' => 'Seiten']];
+	$custom_post_types = get_post_types(['public' => true, '_builtin' => false], 'objects');
+	$all_post_types = array_merge($builtin_post_types, $custom_post_types);
+
 	?>
 	<div class="wrap" style="max-width: 600px;">
 		<h2>Spline 3D</h2>
@@ -36,7 +40,7 @@ function spline_3d_admin_subpage() {
 						<td>
 							<?php foreach ($all_post_types as $post_type): ?>
 								<label>
-									<input type="checkbox" name="post_types[]" value="<?php echo $post_type->name; ?>" <?php echo in_array($post_type->name, $selected_post_types) ? 'checked' : ''; ?>>
+									<input type="checkbox" name="custom_3d_hero_post_types[]" value="<?php echo $post_type->name; ?>" <?php echo in_array($post_type->name, $selected_post_types) ? 'checked' : ''; ?>>
 									<?php echo $post_type->label; ?>
 								</label><br>
 							<?php endforeach; ?>
