@@ -221,6 +221,11 @@ function spline_3d_hero_output() {
 	// ID des aktuellen Beitrags holen (funktioniert außerhalb der Loop)
 	$post_id = get_the_ID();
 
+	// Überprüfen Sie, ob "activate_spline_3d_hero_section" den Wert "yes" hat
+	if (get_field('activate_spline_3d_hero_section', $post_id) !== 'yes') {
+		return;  // Wenn nicht "yes", beenden Sie die Funktion frühzeitig
+	}
+
 	// Werte aus ACF-Feldern holen
 	$hero_spline_3d_height_mobile = get_field('hero_spline_3d_height_mobile', $post_id);
 	$hero_spline_3d_object_url = get_field('hero_spline_3d_object_url', $post_id);
