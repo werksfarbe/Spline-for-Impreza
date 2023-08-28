@@ -1,11 +1,26 @@
 <?php
 
-// Add admin menu
 function spline_3d_admin_menu() {
-	add_menu_page('WerksTools', 'WerksTools', 'manage_options', 'werkstools', 'spline_3d_admin_page', 'dashicons-admin-generic', 3);
+	// Fügt die Hauptseite "WerksTools" hinzu, wenn sie nicht existiert
+	if (empty($GLOBALS['admin_page_hooks']['werkstools'])) {
+		add_menu_page(
+			'WerksTools',            // Seite-Titel
+			'WerksTools',            // Menü-Titel
+			'manage_options',        // Berechtigung
+			'werkstools',            // Menü-Slug
+			'spline_3d_werkstools_page_content'  // Callback-Funktion
+		);
+	}
+
+	// Fügt die Unterseite "Spline 3D" hinzu
 	add_submenu_page('werkstools', 'Spline 3D', 'Spline 3D', 'manage_options', 'spline-3d', 'spline_3d_admin_subpage');
 }
 add_action('admin_menu', 'spline_3d_admin_menu');
+
+function spline_3d_werkstools_page_content() {
+	// Ihr Inhalt für die Hauptseite, wenn das Downloadarea-Plugin nicht aktiviert ist.
+	echo '<h2>WerksTools</h2>';
+}
 
 function spline_3d_admin_subpage() {
 	if (isset($_POST['spline_3d_script_url'])) {
