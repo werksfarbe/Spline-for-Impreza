@@ -26,6 +26,7 @@ function add_custom_3d_object_field() {
 		),
 		'std' => 'absolute',  // Set the default value
 		'description' => 'Wählen Sie die Positionseigenschaft für das 3D-Objekt.',
+		'group' => $tab_name
 	);
 	
 	vc_add_param('vc_row', $attributes_dropdown);
@@ -35,6 +36,7 @@ function add_custom_3d_object_field() {
 		'heading' => 'Object Height',
 		'param_name' => 'custom_3d_height',
 		'description' => 'Set height of the object.',
+		'group' => $tab_name ,
 		'value' => '100vh' // This sets the default value to 100vh
 	);
 	vc_add_param( 'vc_row', $attributes_height );
@@ -44,8 +46,18 @@ function add_custom_3d_object_field() {
 		'heading' => 'Object ID',
 		'param_name' => 'custom_3d_id',
 		'description' => 'Set ID if you want to manipulate the view via css.',
+		'group' => $tab_name
 	);
 	vc_add_param( 'vc_row', $attributes_id );
+	// Custom ID
+	$attributes_class = array(
+		'type' => 'textfield',
+		'heading' => 'Object Class',
+		'param_name' => 'custom_3d_class',
+		'description' => 'Set Class if you want to manipulate the view via css.',
+		'group' => $tab_name
+	);
+	vc_add_param( 'vc_row', $attributes_class );
 }
 
 add_filter( 'vc_shortcode_output', 'prepend_custom_3d_object_inside_row', 10, 3 );
@@ -72,13 +84,24 @@ function prepend_custom_3d_object_inside_row($output, $shortcode, $atts) {
 		// Combine the styles
 		$combined_style = trim($position_style . ' ' . $height_style);
 
-		$classes = 'custom-3d-object';
 		
 		$id_attribute = '';
 		if (isset($atts['custom_3d_id']) && !empty($atts['custom_3d_id'])) {
 			$id_attribute = ' id="' . esc_attr($atts['custom_3d_id']) . '"';
 		}
-
+		$class_attribute = '';
+		if (isset($atts['custom_3d_class']) && !empty($atts['custom_3d_class'])) {
+			$class_attribute = ' class="' . esc_attr($atts['custom_3d_class']) . '"';
+		}
+		// Standardklasse
+		$classes = 'custom-3d-object';
+		
+		// Fügen Sie die benutzerdefinierte Klasse hinzu, wenn sie gesetzt ist
+		if (isset($atts['custom_3d_class']) && !empty($atts['custom_3d_class'])) {
+			$classes .= ' ' . esc_attr($atts['custom_3d_class']);
+		}
+		
+		
 		$custom_output = '<div class="' . esc_attr($classes) . '"' . $id_attribute . ' style="' . $combined_style . '">';
 		$custom_output .= '<spline-viewer loading-anim url="' . esc_url($atts['custom_3d_object']) . '"></spline-viewer>';
 		$custom_output .= '</div>';
