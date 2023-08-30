@@ -4,6 +4,7 @@ function add_custom_3d_object_shortcode($atts) {
 	$atts = shortcode_atts(
 		array(
 			'custom_3d_object_url' => '',
+			'custom_3d_object_class' => '',
 			'show_3d_preloader' => 'false',
 			'show_3d_hint' => 'false'
 		), 
@@ -11,8 +12,15 @@ function add_custom_3d_object_shortcode($atts) {
 		'add_custom_3d_object_shortcode'
 	);
 
-	// Begin building the output string
-	$output = '<div class="shortcode-3d-object">';
+	// Combine default class with user-defined class (if provided)
+	$div_class = 'shortcode-3d-object';
+	if (!empty($atts['custom_3d_object_class'])) {
+		$div_class .= ' ' . esc_attr($atts['custom_3d_object_class']);
+	}
+	
+	// Begin building the output string using the combined classes
+	$output = '<div class="' . $div_class . '">';
+	
 
 	$spline_attributes = 'url="' . esc_url($atts['custom_3d_object_url']) . '"';
 
@@ -33,7 +41,6 @@ add_shortcode('add_custom_3d_object_shortcode', 'add_custom_3d_object_shortcode'
 
 // WP-Backey
 
-// Statt einfach Ihren Code auszuführen, setzen Sie ihn in eine Funktion:
 function load_pagebuilder_element() {
 	if (function_exists('vc_map')) {
 		vc_map(
@@ -66,7 +73,16 @@ function load_pagebuilder_element() {
 						'param_name' => 'show_3d_hint',
 						'value' => array('Yes' => 'true'),
 						'description' => 'Show a hint for the 3D object.'
+					),
+					array(
+						'type' => 'textfield',
+						'holder' => 'div',
+						'heading' => 'Object Class',
+						'param_name' => 'custom_3d_object_class',
+						'value' => '',
+						'description' => 'Set Class if you want to manipulate the view via css.'
 					)
+
 				)
 			)
 		);
