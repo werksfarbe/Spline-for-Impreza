@@ -3,7 +3,7 @@
 /*
 Plugin Name: Spline 3D for Impreza
 Description: Plugin for Imprezas WP-Backery to place 3D Objects in Background.
-Version: 0.6.5
+Version: 0.6.7
 Author: Tom
 */
 
@@ -30,4 +30,5 @@ require_once SPLINE_3D_PATH . '/includes/class-spline-3d.php';
 require_once SPLINE_3D_PATH . '/includes/class-spline-admin.php';
 require_once SPLINE_3D_PATH . '/includes/class-spline-3d-herosection.php';
 require_once SPLINE_3D_PATH . '/includes/class-spline-3d-shortcode.php';
+require_once SPLINE_3D_PATH . '/includes/class-spline-3d-grid-shortcode.php';
 

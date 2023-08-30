@@ -65,6 +65,9 @@ function spline_3d_admin_subpage() {
 				<?php submit_button(); ?>
 			</form>
 		</div>
+		<div class="info" style="background: #ffffff; padding: 1rem;">
+			<p>Use [add_custom_3d_object_for_grids] for Grid Teaser</p>
+		</div>
 	</div>
 	<?php
 }
