@@ -3,12 +3,15 @@
 add_action( 'vc_after_init', 'add_custom_3d_object_field' );
 
 function add_custom_3d_object_field() {
+	// Tabname
+	$tab_name = '3D';
 	// Custom object
 	$attributes_textfield = array(
 		'type' => 'textfield',
 		'heading' => '3D-Object',
 		'param_name' => 'custom_3d_object',
-		'description' => 'Pash to spline viewer file.',
+		'description' => 'Path to spline viewer file.',
+		'group' => $tab_name
 	);
 	vc_add_param( 'vc_row', $attributes_textfield );
 	// Custom Option for Object Positioning
