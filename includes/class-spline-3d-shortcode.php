@@ -48,6 +48,7 @@ function load_pagebuilder_element() {
 				'name' => 'Custom 3D Object',
 				'base' => 'add_custom_3d_object_shortcode',
 				'html_template' => plugin_dir_path(__FILE__) . 'vc_templates/shortcode-3d-object.php',
+				'icon' => plugins_url( '../images/spline.png', __FILE__ ),
 				'category' => 'Spline 3D',
 				'params' => array(
 					array(
